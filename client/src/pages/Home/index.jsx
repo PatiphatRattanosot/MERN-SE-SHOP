@@ -5,12 +5,12 @@ import Testimonials from "./Testimonials";
 import Category from "./Category";
 const index = () => {
   return (
-    <div>
+    <div className="">
       <Banner />
       <Category />
       <Product />
-      <Service />
       <Testimonials />
+      <Service />
     </div>
   );
 };
