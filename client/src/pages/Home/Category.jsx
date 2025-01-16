@@ -35,7 +35,7 @@ const Category = () => {
         <p className="subtitle">Customer Favorites</p>
         <h2 className="title">Popular Categories</h2>
       </div>
-      <div className="flex flex-col sm:flex-row flex-warp gap-6 justify-around item-center-mt12">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-6 justify-around item-center-mt12">
         {categories.length > 0 &&
           categories.map((item) => (
             <div

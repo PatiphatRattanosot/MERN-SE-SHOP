@@ -1,5 +1,13 @@
+import Banner from "./Banner";
+import ProductList from "./ProductList";
+
 const index = () => {
-  return <div>index</div>;
+  return (
+    <div>
+      <Banner />
+      <ProductList />
+    </div>
+  );
 };
 
 export default index;

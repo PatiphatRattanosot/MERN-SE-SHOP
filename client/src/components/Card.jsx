@@ -25,7 +25,7 @@ const Card = ({ item }) => {
           className="hover:scale-105 transition-all duration-300 md:h-60 object-cover h-30"
         />
       </figure>
-      <div className="card-body">
+      <div className="card-body p-4">
         <h2 className="title">{name}</h2>
         <p>{description}</p>
         <div className="card-action justify-between item-center mt-2">
