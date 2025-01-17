@@ -13,7 +13,9 @@ const Card = ({ item }) => {
         <input
           type="radio"
           name="rating-3"
-          className={`mask mask-heart ${isHeartFilled ? "bg-green-400" : " "}`}
+          className={`mask mask-heart z-30 ${
+            isHeartFilled ? "bg-green-400" : " "
+          }`}
           onClick={handleIsHeartClick}
         />
       </div>

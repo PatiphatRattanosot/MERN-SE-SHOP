@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 import ProductService from "../../services/product.service";
 import Card from "../../components/Card";
+import { useSearchParams } from "react-router";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [sortOption, setSortOption] = useState("default");
-  const [selected, setSelcted] = useState("all");
+  const [selected, setSelected] = useState("all");
+  //useSearchParams จัดการคิวรี่สตริงใน URL
+  const [searchParams, setSearchParams] = useSearchParams();
   const [itemPerPage, setItemPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
+  const categoryQuery = searchParams.get("category") || "all";
+  const itemsPerPageQuery = searchParams.get("itemsPerPage") || 4;
+  useEffect(() => {
+    setSelected(categoryQuery);
+    setItemPerPage(itemsPerPageQuery);
+  }, [categoryQuery, itemsPerPageQuery]);
   useEffect(() => {
     const fetchData = async () => {
       const response = await ProductService.getAll();
@@ -29,7 +38,7 @@ const ProductList = () => {
         : products.filter((item) => item.category === category);
     setFilteredItems(filtered);
     handleSortChange(filtered);
-    setSelcted(category);
+    setSelected(category);
   };
 
   const handleSortChange = (option, products) => {

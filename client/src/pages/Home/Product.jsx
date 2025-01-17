@@ -5,6 +5,8 @@ import Slider from "react-slick";
 import productList from "./product.json";
 import { useRef, useState } from "react";
 import Card from "../../components/Card";
+import { useEffect } from "react";
+import ProductService from "../../services/product.service";
 
 const SampleNextArrow = (props) => {
   const { className, style, onClick } = props;
@@ -33,6 +35,14 @@ const SamplePrevArrow = (props) => {
 const Product = () => {
   const [products, setProducts] = useState(productList);
   const slider = useRef(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await ProductService.getAll();
+      setProducts(response.data);
+    };
+    fetchData();
+  }, []);
 
   const settings = {
     dots: true,

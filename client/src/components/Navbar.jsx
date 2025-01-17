@@ -35,16 +35,16 @@ const Navbar = () => {
                       <a href="/shop">All</a>
                     </li>
                     <li>
-                      <a href="/shop?cloting">Clothing</a>
+                      <a href="/shop?category=cloting">Clothing</a>
                     </li>
                     <li>
-                      <a href="/shop?accessories">Accessories</a>
+                      <a href="/shop?category=accessories">Accessories</a>
                     </li>
                     <li>
-                      <a href="/shop?gadgets">Gadgets</a>
+                      <a href="/shop?category=gadgets">Gadgets</a>
                     </li>
                     <li>
-                      <a href="/shop?swag">Swag</a>
+                      <a href="/shop?category=swag">Swag</a>
                     </li>
                   </ul>
                 </details>
@@ -87,16 +87,16 @@ const Navbar = () => {
                     <a href="/shop">All</a>
                   </li>
                   <li>
-                    <a href="/shop?cloting">Clothing</a>
+                    <a href="/shop?category=cloting">Clothing</a>
                   </li>
                   <li>
-                    <a href="/shop?accessories">Accessories</a>
+                    <a href="/shop?category=accessories">Accessories</a>
                   </li>
                   <li>
-                    <a href="/shop?gadgets">Gadgets</a>
+                    <a href="/shop?category=gadgets">Gadgets</a>
                   </li>
                   <li>
-                    <a href="/shop?swag">Swag</a>
+                    <a href="/shop?category=swag">Swag</a>
                   </li>
                 </ul>
               </details>
