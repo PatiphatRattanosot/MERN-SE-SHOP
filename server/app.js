@@ -19,14 +19,18 @@ mongoose
   .then(() => console.log("Connected td mongodb"))
   .catch((err) => console.log("Database connection error : " + err));
 
+// Routes
 const ProductRoute = require("./routes/product.route");
 app.use("/api/product", ProductRoute);
 
+//PORT
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 //swagger
-const sw
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./docs/swagger-output.json");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req, res) => {
   res.send(`

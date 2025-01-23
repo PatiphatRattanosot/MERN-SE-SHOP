@@ -2,7 +2,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-import productList from "./product.json";
 import { useRef, useState } from "react";
 import Card from "../../components/Card";
 import { useEffect } from "react";
@@ -33,7 +32,7 @@ const SamplePrevArrow = (props) => {
 };
 
 const Product = () => {
-  const [products, setProducts] = useState(productList);
+  const [products, setProducts] = useState([]);
   const slider = useRef(null);
 
   useEffect(() => {

@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import Cart from "../pages/Cart";
 import Shop from "../pages/Shop";
 import App from "../App";
+import Setting from "../pages/User/Setting";
+import Profile from "../pages/User/Profile";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: "/shop",
         element: <Shop />,
+      },
+      {
+        path: "/profile/setting",
+        element: <Setting />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },

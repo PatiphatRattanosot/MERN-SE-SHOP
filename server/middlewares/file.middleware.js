@@ -1,21 +1,13 @@
 const multer = require("multer");
 const path = require("path");
 
-const {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} = require("firebase/storage");
-const { initializeApp } = require("firebase/app");
+const { getStorage, ref, uploadBytesResumable, getDownloadURL } = require('firebase/storage')
+const { initializeApp } = require('firebase/app');
 const firebaseConfig = require("../configs/firebase.config");
-// console.log(firebaseConfig);
 
 //init firebase
-const app = initializeApp(firebaseConfig);
-const firebaseStorage = getStorage(app);
-// console.log("App : ", app);
-// console.log("Firebase : ", firebaseStorage);
+const app = initializeApp(firebaseConfig)
+const firebaseStorage = getStorage(app)
 
 // const storage = multer.diskStorage({
 //   destination: "./uploads/",
@@ -49,38 +41,22 @@ function checkFileType(file, cb) {
 }
 ///upload to firebase
 async function uploadToFirebase(req, res, next) {
+
   if (!req.file) return next();
 
-  try {
-    const storageRef = ref(
-      firebaseStorage,
-      `SE-Shop/Ooy/${req?.file?.originalname}`
-    );
-  } catch (error) {
-    console.log(error);
-  }
-  const storageRef = ref(
-    firebaseStorage,
-    `SE-Shop/Ooy/${req?.file?.originalname}`
-  );
+  const storageRef = ref(firebaseStorage, `uploads/${req?.file?.originalname}`)
+
   const metadata = {
-    contentType: req?.file?.mimetype,
-  };
+    contentType: req?.file?.mimetype
+  }
   try {
     //uploading...
-    const snapshot = await uploadBytesResumable(
-      storageRef,
-      req?.file?.buffer,
-      metadata
-    );
+    const snapshot = await uploadBytesResumable(storageRef, req?.file?.buffer, metadata)
     //get url from firebase
-    req.file.firebaseURL = await getDownloadURL(snapshot.ref);
-    next();
+    req.file.firebaseURL = await getDownloadURL(snapshot.ref)
+    next()
   } catch (error) {
-    res.status(500).json({
-      message:
-        error.message || "Something wen wrong while uploading to firebase",
-    });
+    res.status(500).json({ message: error.message || "Something wen wrong while uploading to firebase" })
   }
 }
-module.exports = { upload, uploadToFirebase };
+module.exports = { upload, uploadToFirebase }

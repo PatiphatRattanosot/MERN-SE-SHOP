@@ -1,4 +1,11 @@
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import Profile from "./Profile";
+import UserIcon from "./icons/UserIcon";
+import Modal from "./Modal";
+
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   return (
     <>
       <div className="navbar bg-base-100">
@@ -122,9 +129,29 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end">
-          <a className="btn">Button</a>
+        <div className="navbar-end space-x-1">
+          {/* Ternary operator */}
+          {user ? (
+            <Profile />
+          ) : (
+            <div className="space-x-2 flex">
+              <button
+                onClick={() => document.getElementById("register").showModal()}
+                className="btn btn-ghost rounded-full px-5 flex items-center"
+              >
+                register
+              </button>
+              <button
+                onClick={() => document.getElementById("login").showModal()}
+                className="btn bg-red text-white rounded-full px-5 flex items-center"
+              >
+                <UserIcon /> Login
+              </button>
+            </div>
+          )}
         </div>
+        <Modal name="login" />
+        <Modal name="register" />
       </div>
     </>
   );
