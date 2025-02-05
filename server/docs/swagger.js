@@ -2,34 +2,104 @@ const swaggerAutogen = require("swagger-autogen")({ openapi: "3.0.0" });
 
 const doc = {
   info: {
-    version: "1.0.0", // by default: '1.0.0'
-    title: "SE Shop REST API", // by default: 'REST API'
-    description: "RESTful API for SE Shop", // by default: '',
+    version: "1.0.0",
+    title: "SE Shop REST API",
+    description: "RESTful API for SE Shop",
     contact: {
-      name: "Worachet Uttha",
-      url: "https://pws.npru.ac.th/wuttha",
-      email: "wuttha@webmail.npru.ac.th",
+      name: "Patiphat Rattanosot",
+      url: "https://github.com/PatiphatRattanosot",
+      email: "654259017@webmail.npru.ac.th",
     },
   },
   servers: [
     {
-      url: "http://localhost:5000", // by default: 'http://localhost:3000'
+      url: "http://localhost:3000", // by default: 'http://localhost:3000'
       description: "Local", // by default: ''
     },
     {
-      url: "http://render.com:5000", // by default: 'http://localhost:3000'
+      url: "http://render.com:3000", // by default: 'http://localhost:3000'
       description: "Online", // by default: ''
     },
     // { ... }
   ],
   tags: [
-    // by default: empty Array
     {
       name: "Product", // Tag name
       description: "API For Product Object", // Tag description
     },
     // { ... }
   ],
+  paths: {
+    "/api/product/": {
+      post: {
+        tags: ["Product"],
+        summary: "Create a new product",
+        description: "Endpoint to create a new product",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas.NewProduct",
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "Product created successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas.ProductResponse",
+                },
+              },
+            },
+          },
+          400: {
+            description: "Bad Request",
+          },
+          500: {
+            description: "Internal Server Error",
+          },
+        },
+      },
+    },
+    "/api/product/{id}": {
+      get: {
+        tags: ["Product"],
+        summary: "Get product by ID",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: "Product fetched successfully",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas.ProductResponse",
+                },
+              },
+            },
+          },
+          404: {
+            description: "Product Not Found",
+          },
+          500: {
+            description: "Internal Server Error",
+          },
+        },
+      },
+    },
+  },
   components: {
     schemas: {
       Product: {
@@ -42,28 +112,53 @@ const doc = {
           price: { type: "number" },
         },
       },
+      Cart: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          category: { type: "string" },
+          description: { type: "string" },
+          image: { type: "string" },
+          price: { type: "number" },
+        },
+      },
       NewProduct: {
-        name: "Mechanical Keyboard",
-        description: "A mechanical keyboard with RGB lighting",
-        price: 100,
-        category: "gadget",
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          description: { type: "string" },
+          price: { type: "number" },
+          category: { type: "string" },
+        },
+        example: {
+          name: "Mechanical Keyboard",
+          description: "A mechanical keyboard with RGB lighting",
+          price: 100,
+          category: "gadget",
+        },
       },
       ProductResponse: {
-        name: "Mechanical Keyboard",
-        description: "A mechanical keyboard with RGB lighting",
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/component-431e1.firebasestorage.app/o/se-shop%2Fupload%2F71fRP7KY9hL._AC_SL1500_.jpg?alt=media&token=f63134ce-67a9-4dda-af12-c6d54b70fdc3",
-        price: 100,
-        category: "gadget",
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          description: { type: "string" },
+          image: { type: "string" },
+          price: { type: "number" },
+          category: { type: "string" },
+        },
+        example: {
+          name: "Mechanical Keyboard",
+          description: "A mechanical keyboard with RGB lighting",
+          image: "https://example.com/image.jpg",
+          price: 100,
+          category: "gadget",
+        },
       },
     },
-  }, // by default: empty object
+  },
 };
 
 const outputFile = "./swagger-output.json";
-const routes = ["./index.js"];
-
-/* NOTE: If you are using the express Router, you must pass in the 'routes' only the 
-root file where the route starts, such as index.js, app.js, routes.js, etc ... */
+const routes = ["./app.js"];
 
 swaggerAutogen(outputFile, routes, doc);

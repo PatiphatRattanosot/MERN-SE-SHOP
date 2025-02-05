@@ -14,6 +14,10 @@
     {
       "url": "http://localhost:3000",
       "description": "Local"
+    },
+    {
+      "url": "http://render.com:3000",
+      "description": "Online"
     }
   ],
   "tags": [
@@ -203,37 +207,446 @@
           }
         }
       }
+    },
+    "/api/cart/": {
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Create a new Cart",
+        "description": "Endpoint to create a new product in the cart.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {}
+      },
+      "get": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Get all cart items",
+        "description": "Endpoint to fetch all cart items.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/cart/{email}": {
+      "get": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Clear all cart items by email",
+        "description": "Endpoint to clear all cart items for a specific user by email.",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/cart/{id}": {
+      "put": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Update cart item",
+        "description": "Endpoint to update a product in the cart.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {}
+      },
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Delete cart item",
+        "description": "Endpoint to delete a product from the cart.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/cart/clear/{email}": {
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Clear all cart items by email",
+        "description": "Endpoint to clear all cart items for a specific user by email.",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "components": {
-    "schema": {
+    "schemas": {
       "Product": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string"
+          "type": {
+            "type": "string",
+            "example": "object"
           },
-          "category": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "price": {
-            "type": "number"
-          },
-          "image": {
-            "type": "string"
+          "properties": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "category": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "description": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "image": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "price": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "number"
+                  }
+                }
+              }
+            }
           }
-        },
-        "NewProduct": {
-          "name": "IQOO Z9",
-          "category": "tech",
-          "description": "",
-          "price": "",
-          "image": ""
-        },
-        "ProductResponse": {}
+        }
+      },
+      "Cart": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "category": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "description": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "image": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "price": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewProduct": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "description": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "price": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "number"
+                  }
+                }
+              },
+              "category": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              }
+            }
+          },
+          "example": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Mechanical Keyboard"
+              },
+              "description": {
+                "type": "string",
+                "example": "A mechanical keyboard with RGB lighting"
+              },
+              "price": {
+                "type": "number",
+                "example": 100
+              },
+              "category": {
+                "type": "string",
+                "example": "gadget"
+              }
+            }
+          }
+        }
+      },
+      "ProductResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "example": "object"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "description": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "image": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              },
+              "price": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "number"
+                  }
+                }
+              },
+              "category": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              }
+            }
+          },
+          "example": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Mechanical Keyboard"
+              },
+              "description": {
+                "type": "string",
+                "example": "A mechanical keyboard with RGB lighting"
+              },
+              "image": {
+                "type": "string",
+                "example": "https://example.com/image.jpg"
+              },
+              "price": {
+                "type": "number",
+                "example": 100
+              },
+              "category": {
+                "type": "string",
+                "example": "gadget"
+              }
+            }
+          }
+        }
       }
     }
   }

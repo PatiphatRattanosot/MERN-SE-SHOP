@@ -11,6 +11,7 @@ import {
   GithubAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 
 const AuthProvider = ({ children }) => {
@@ -56,6 +57,13 @@ const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, [auth]);
 
+  const updateUserProfile = ({ name, photoURL }) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photoURL,
+    });
+  };
+
   const authInfo = {
     user,
     createUser,
@@ -64,7 +72,20 @@ const AuthProvider = ({ children }) => {
     signUpWithGoogle,
     signUpWithGithub,
     signUpWithFacebook,
+    updateUserProfile,
   };
+  //check if user is logged in
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        setUser(currentUser);
+      }
+    });
+    return () => {
+      return unsubscribe();
+    };
+  }, [auth]);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
