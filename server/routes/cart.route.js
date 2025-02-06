@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/", CartControllers.createCart);
 router.get("/", CartControllers.getAll);
-router.get("/:email", CartControllers.clearAllByEmail);
+router.get("/:email", CartControllers.getByEmail);
 router.put("/:id", CartControllers.update);
 router.delete("/:id", CartControllers.delete);
 router.delete("/clear/:email", CartControllers.clearAllByEmail);

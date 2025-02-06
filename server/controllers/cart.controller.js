@@ -141,7 +141,10 @@ exports.getByEmail = async (req, res) => {
    * }
    */
   const { email } = req.params;
-  const carts = await CartModel.find({ email: req.params.email });
+  if (!email) {
+    return res.status(404).json({ message: "User email not found" });
+  }
+  const carts = await Cart.find({ email: req.params.email });
   res.json(carts);
 };
 
