@@ -12,7 +12,9 @@
   "dependencies": {
     "@tanstack/react-query": "^5.66.0",
     "axios": "^1.7.9",
+    "dropzone": "^6.0.0-beta.2",
     "firebase": "^11.2.0",
+    "preline": "^2.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",

@@ -34,7 +34,7 @@ const Profile = () => {
             <span className="text-lg font-bold">{cart.length} Items</span>
             <span className="text-info">Subtotal: $999</span>
             <div className="card-actions">
-              <button className="btn btn-primary btn-block">View cart</button>
+              <a href="/cart" className="btn btn-primary btn-block">View cart</a>
             </div>
           </div>
         </div>

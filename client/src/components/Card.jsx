@@ -15,11 +15,14 @@ const Card = ({ item }) => {
   };
 
   const handleAddToCart = async () => {
-    if (!user || !user?.email) {
+    if (!user || !user.email) {
       Swal.fire({
-        icon: "error",
         title: "Oops...",
-        text: "Pls login for add to cart.",
+        text: "Please login to add to cart!",
+        timer: 1500,
+        icon: "error",
+        position: "center",
+        showConfirmButton: false,
       });
       return;
     }
@@ -36,17 +39,23 @@ const Card = ({ item }) => {
       const response = await CartServices.createCartItem(cartItem);
       if (response.status === 200) {
         Swal.fire({
+          title: "Success",
+          text: "Item added to cart.",
+          timer: 1500,
           icon: "success",
-          title: "success",
-          text: "Item added to cart",
+          position: "center",
+          showConfirmButton: false,
         });
         refetch();
       }
     } catch (error) {
       Swal.fire({
-        icon: "error",
         title: "Oops...",
-        text: error?.message,
+        text: error.message,
+        timer: 1500,
+        icon: "error",
+        position: "center",
+        showConfirmButton: false,
       });
     }
   };

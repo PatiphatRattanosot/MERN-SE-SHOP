@@ -6,6 +6,12 @@ import Shop from "../pages/Shop";
 import App from "../App";
 import Setting from "../pages/User/Setting";
 import Profile from "../pages/User/Profile";
+import AdminLayout from "../layouts/AdminLatout.jsx/index";
+import Dashboard from "../pages/Admin/Dashboard";
+import AddProduct from "../pages/Admin/AddProduct";
+import MenageItem from "../pages/Admin/MenageItem";
+import Users from "../pages/Admin/Users";
+import ManageOrders from "../pages/Admin/MenageOrders";
 
 const router = createBrowserRouter([
   {
@@ -35,8 +41,31 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/test",
-    element: <App></App>,
+    path: "admin",
+    element: <AdminLayout></AdminLayout>,
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />
+      },
+      {
+        path: "manage-item",
+        element: <MenageItem />
+      },
+      {
+        path: "user-list",
+        element: <Users />
+      },
+      {
+        path: "orders",
+        element: <ManageOrders />
+      }
+    ]
+
   },
 ]);
 export default router;
