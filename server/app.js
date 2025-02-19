@@ -22,8 +22,10 @@ mongoose
 // Routes
 const ProductRoute = require("./routes/product.route");
 const CartRoute = require("./routes/cart.route");
+const UserRoute = require("./routes/user.route");
 app.use("/api/product", ProductRoute);
 app.use("/api/cart", CartRoute);
+app.use("/api/user", UserRoute);
 
 //PORT
 const PORT = process.env.PORT || 3000;

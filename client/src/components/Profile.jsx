@@ -4,6 +4,8 @@ import useCart from "../hooks/useCart";
 const Profile = () => {
   const { logout, user } = useContext(AuthContext);
   const [cart] = useCart();
+  console.log(user);
+
   return (
     <>
       <div className="dropdown dropdown-end">
@@ -34,7 +36,9 @@ const Profile = () => {
             <span className="text-lg font-bold">{cart.length} Items</span>
             <span className="text-info">Subtotal: $999</span>
             <div className="card-actions">
-              <a href="/cart" className="btn btn-primary btn-block">View cart</a>
+              <a href="/cart" className="btn btn-primary btn-block">
+                View cart
+              </a>
             </div>
           </div>
         </div>
@@ -47,7 +51,7 @@ const Profile = () => {
         >
           <div className="size-9 rounded-full">
             {user?.photoURL ? (
-              <img alt="User profile" src={user.photoURL} />
+              <img alt="User profile" src={user?.photoURL} />
             ) : (
               <img
                 alt="Tailwind CSS Navbar component"

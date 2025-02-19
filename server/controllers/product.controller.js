@@ -1,3 +1,4 @@
+const { log } = require("console");
 const ProductModel = require("../models/product.model");
 const fs = require("fs");
 
@@ -30,26 +31,30 @@ exports.createProduct = async (req, res) => {
    */
 
   try {
-    const { name, category, description, price, image } = req.body;
+    const { name, category, description, price } = req.body;
 
+    if (!req.file) {
+      return res.status(404).json({ message: "Image is required" });
+    }
+    const image = req.file.firebaseURL;
     //File upload
-
-    const authorId = req.userId;
     if (!name || !description || !category || !price || !image) {
-      return res.status(400).json({ message: "All Fields is require" });
+      return res.status(404).json({ message: "All Fields is require" });
     }
     const newProduct = await ProductModel.create({
       name,
       category,
       description,
       price,
-      image: req.file.firebaseUrl,
+      image,
     });
     if (!newProduct) {
       res.status(404).json({ message: "cannot create product" });
     }
-    res.status(200).json(newProduct);
+    res.status(200).json({ message: "Created Product.", newProduct });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({ message: error.message });
   }
 };
@@ -116,20 +121,16 @@ exports.updateProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
   const { id } = req.params;
   const authorId = req.userId;
+
   try {
     const deletedProduct = await ProductModel.findById(id);
-
-    const imagePath = (__dirname, deletedProduct.cover);
+    if (!deletedProduct)
+      return res.status(404).json({ message: "Product not found" });
     await deletedProduct.deleteOne();
-    // Delete Image File from folder
-    fs.unlink(imagePath, (err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Failed to delete image." });
-      }
-      res.status(200).json(deletedProduct);
-    });
+    res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({ message: error.message });
   }
 };

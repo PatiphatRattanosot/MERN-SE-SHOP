@@ -2,37 +2,39 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.register = async (req, res) => {
+exports.sign = async (req, res) => {
+  const email = req.body.email;
+  if (!email) return res.status(400).json({ message: "Email is required" });
   try {
-    const { username, password } = req.body;
-
-    const user = await User.findOne({ username });
-    if (user) return res.status(404).json({ message: "User already exists" });
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ username, password: hashedPassword });
-    res.status(201).json({ username: newUser.username, id: newUser._id });
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    const token = jwt.sign(
+      { email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    res.status(200).json({ token });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message || "Something went wrong" });
   }
 };
 
-exports.login = async (req, res) => {
+exports.addUser = async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+
+  if (!email) return res.status(400).json({ message: "Email is required" });
   try {
-    const { username, password } = req.body;
-
-    const user = await User.findOne({ username });
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid)
-      return res.status(401).json({ message: "Password is incorrect." });
-
-    const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, {
-      expiresIn: "12h",
-    });
-    res.status(200).json({ id: user._id, username: user.username, token });
+    const userExist = await User.findOne({ email });
+    if (userExist)
+      return res.status(409).json({ message: "User already exist" });
+    const newUser = await User.create({ email });
+    if (!newUser)
+      return res.status(404).json({ message: "cannot create user" });
+    res.status(200).json({ message: "Created User.", newUser });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message || "Something error occurred adding a new user",
+    });
   }
 };

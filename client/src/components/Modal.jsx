@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import Swal from "sweetalert2";
 import { useNavigate, useLocation } from "react-router";
-
+import UserService from "../services/user.service";
 const Modal = ({ name }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,7 +26,7 @@ const Modal = ({ name }) => {
   const onSubmit = (data) => {
     if (name === "login") {
       login(data.email, data.password)
-        .then((result) => {
+        .then(async (result) => {
           const user = result.user;
           console.log(user);
           document.getElementById(name).close();
@@ -47,9 +47,10 @@ const Modal = ({ name }) => {
         });
     } else {
       createUser(data.email, data.password)
-        .then((result) => {
+        .then(async (result) => {
           const user = result.user;
           console.log(user);
+          await UserService.addUser(data.email);
           document.getElementById(name).close();
           Swal.fire({
             title: "Register",
@@ -71,9 +72,10 @@ const Modal = ({ name }) => {
 
   const googleSignUp = () => {
     signUpWithGoogle()
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
         console.log(user);
+        await UserService.addUser(user.email);
         document.getElementById(name).close();
         Swal.fire({
           title: "Google authenticate",
@@ -98,27 +100,6 @@ const Modal = ({ name }) => {
         document.getElementById(name).close();
         Swal.fire({
           title: "Github authenticate",
-          text: "authenticate successfully!",
-          icon: "success",
-          timer: 1500,
-          showConfirmButton: false,
-        }).then(() => {
-          navigate(from);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const facebookSignUp = () => {
-    signUpWithFacebook()
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        document.getElementById(name).close();
-        Swal.fire({
-          title: "Facebook authenticate",
           text: "authenticate successfully!",
           icon: "success",
           timer: 1500,
@@ -224,12 +205,7 @@ const Modal = ({ name }) => {
               >
                 <FaGoogle className="size-4" />
               </button>
-              <button
-                onClick={() => facebookSignUp()}
-                className="btn rounded-full"
-              >
-                <FaFacebook className="size-4" />
-              </button>
+
               <button
                 onClick={() => githubSignUp()}
                 className="btn rounded-full"

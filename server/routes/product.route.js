@@ -9,6 +9,6 @@ router.post("/", [upload, uploadToFirebase], ProductController.createProduct);
 router.get("/", ProductController.getAllProducts);
 router.get("/:id", ProductController.getProductById);
 router.put("/:id", [upload], ProductController.updateProduct);
-router.delete("/:id", [authJwt.verifyToken], ProductController.deleteProduct);
+router.delete("/:id", ProductController.deleteProduct);
 
 module.exports = router;

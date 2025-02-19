@@ -12,6 +12,7 @@ import AddProduct from "../pages/Admin/AddProduct";
 import MenageItem from "../pages/Admin/MenageItem";
 import Users from "../pages/Admin/Users";
 import ManageOrders from "../pages/Admin/MenageOrders";
+import AdminRoute from "../ProtectedRoutes/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -42,30 +43,33 @@ const router = createBrowserRouter([
   },
   {
     path: "admin",
-    element: <AdminLayout></AdminLayout>,
+    element: (
+      <AdminRoute>
+        <AdminLayout />
+      </AdminRoute>
+    ),
     children: [
       {
-        path: "dashboard",
-        element: <Dashboard />
+        path: "",
+        element: <Dashboard />,
       },
       {
         path: "add-product",
-        element: <AddProduct />
+        element: <AddProduct />,
       },
       {
         path: "manage-item",
-        element: <MenageItem />
+        element: <MenageItem />,
       },
       {
         path: "user-list",
-        element: <Users />
+        element: <Users />,
       },
       {
         path: "orders",
-        element: <ManageOrders />
-      }
-    ]
-
+        element: <ManageOrders />,
+      },
+    ],
   },
 ]);
 export default router;
