@@ -21,6 +21,7 @@ const cookies = new Cookies();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const auth = getAuth(app);
 
   const getUser = () => {
     const token = cookies.get("token");
@@ -54,8 +55,6 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
-  const auth = getAuth(app);
-
   //   check if user is logged in?
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -75,7 +74,9 @@ const AuthProvider = ({ children }) => {
       }
       setIsLoading(false);
     });
-    return unsubscribe;
+    return () => {
+      return unsubscribe();
+    };
   }, [auth]);
 
   const updateUserProfile = ({ name, photoURL }) => {
@@ -97,18 +98,6 @@ const AuthProvider = ({ children }) => {
     signUpWithFacebook,
     updateUserProfile,
   };
-  //check if user is logged in
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      if (currentUser) {
-        setUser(currentUser);
-      }
-    });
-    return () => {
-      return unsubscribe();
-    };
-  }, [auth]);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

@@ -1,7 +1,9 @@
-import React from "react";
+import { useContext } from "react";
 import { Outlet } from "react-router";
 import logo from "/images/logo.jpg";
-const index = () => {
+import { AuthContext } from "../../contexts/AuthContext";
+const Index = () => {
+  const { logout, user } = useContext(AuthContext);
   const IsAdmin = true;
   return (
     <div>
@@ -63,6 +65,17 @@ const index = () => {
               <li>
                 <a>Customer Support</a>
               </li>
+              <div className="relative flex py-5 items-center">
+                <div className="flex-grow border-t border-gray-400"></div>
+                <span className="flex-shrink mx-4 text-gray-400">Other</span>
+                <div className="flex-grow border-t border-gray-400"></div>
+              </div>
+              <ul>
+                <li>Email: {user.email}</li>
+                <li>
+                  <a onClick={() => logout()}>Logout</a>
+                </li>
+              </ul>
             </ul>
           </div>
         </div>
@@ -73,4 +86,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

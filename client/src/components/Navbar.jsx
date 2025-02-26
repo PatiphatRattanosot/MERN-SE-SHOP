@@ -5,7 +5,9 @@ import UserIcon from "./icons/UserIcon";
 import Modal from "./Modal";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { getUser } = useContext(AuthContext);
+  const user = getUser();
+
   return (
     <>
       <div className="navbar fixed  bg-base-100 z-50">
@@ -75,6 +77,11 @@ const Navbar = () => {
               <li>
                 <a>About Us</a>
               </li>
+              {user?.role === "admin" && (
+                <li>
+                  <a href="/admin">Admin Page</a>
+                </li>
+              )}
             </ul>
           </div>
           <a href="/" className="btn btn-ghost text-xl">
@@ -127,6 +134,11 @@ const Navbar = () => {
             <li>
               <a>About Us</a>
             </li>
+            {user?.role === "admin" && (
+              <li>
+                <a href="/admin">Admin Page</a>
+              </li>
+            )}
           </ul>
         </div>
         <div className="navbar-end space-x-1">

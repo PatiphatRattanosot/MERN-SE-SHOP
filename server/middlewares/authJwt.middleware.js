@@ -12,15 +12,22 @@ verifyToken = (req, res, next) => {
     if (err) {
       return res.status(403).json({ message: "Access Forbidden!!" });
     }
-    req.userId = decode.id;
-    req.username = decode.username;
+    req.email = decode.email;
+    req.role = decode.role;
 
     next();
   });
 };
+isAdmin = (req, res, next) => {
+  if (req.role !== "admin") {
+    return res.status(403).json({ message: "Admin Access Only" });
+  }
+  next();
+};
 
 const authJwt = {
   verifyToken,
+  isAdmin,
 };
 
 module.exports = authJwt;
