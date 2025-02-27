@@ -13,6 +13,7 @@ import MenageItem from "../pages/Admin/MenageItem";
 import Users from "../pages/Admin/Users";
 import ManageOrders from "../pages/Admin/MenageOrders";
 import AdminRoute from "../ProtectedRoutes/AdminRoute";
+import CheckOutSuccess from "../CheckOutSuccess/Index";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/shop",
         element: <Shop />,
+      },
+      {
+        path: "/checkout-success",
+        element: <CheckOutSuccess />,
       },
       {
         path: "/profile/setting",

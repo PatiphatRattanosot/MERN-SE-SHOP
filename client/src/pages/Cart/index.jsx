@@ -6,6 +6,7 @@ import useCart from "../../hooks/useCart";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import { ImBin2 } from "react-icons/im";
+import PaymentButton from "../../components/PaymentButton";
 
 const index = () => {
   const [cart, refetch] = useCart();
@@ -126,7 +127,7 @@ const index = () => {
   };
 
   console.log(cart);
-  
+
   return (
     <>
       <div className="section-container min-h-screen bg-gradient-to-r from-[#FAFAFA] from-0% to-[#FCFCFC] to-100% h-[80.5vh]">
@@ -160,7 +161,7 @@ const index = () => {
                     <td>
                       <div className="avatar">
                         <div className="mask mask-squircle h-14 w-14">
-                          <img src={item.image} alt={`${item.name} image` }/>
+                          <img src={item.image} alt={`${item.name} image`} />
                         </div>
                       </div>
                     </td>
@@ -176,7 +177,7 @@ const index = () => {
                         <span className="w-6 text-center">{item.quantity}</span>
                         <button
                           className="btn btn-xs"
-                          onClick={() => handleIncreases(item)}
+                          onClick={() => handleIncrease(item)}
                         >
                           <FiPlus />
                         </button>
@@ -232,9 +233,7 @@ const index = () => {
                 <h3 className="text-lg font-semibold">Shopping Details</h3>
                 <p>Total Items: {cart.length} items</p>
                 <p>Total Price: {formatPrice(totalPrice(cart))}</p>
-                <button className="btn bg-red text-white">
-                  Proceed to Checkout
-                </button>
+                <PaymentButton cartItem={cart} />
               </div>
             </div>
           </div>

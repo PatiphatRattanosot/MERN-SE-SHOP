@@ -24,8 +24,7 @@ const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
 
   const getUser = () => {
-    const token = cookies.get("token");
-    const user = jwtDecode(token);
+    const user = cookies.get("token");
     return user;
   };
   const createUser = (email, password) => {

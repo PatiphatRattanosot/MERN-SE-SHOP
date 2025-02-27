@@ -75,7 +75,7 @@ const Modal = ({ name }) => {
       .then(async (result) => {
         const user = result.user;
         console.log(user);
-        await UserService.addUser(user.email);
+        await UserService.sign(user.email);
         document.getElementById(name).close();
         Swal.fire({
           title: "Google authenticate",
