@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
 
   const getUser = () => {
-    const user = cookies.get("token");
+    const user = cookies.get("user");
     return user;
   };
   const createUser = (email, password) => {
@@ -62,10 +62,11 @@ const AuthProvider = ({ children }) => {
         setUser(currentUser);
         setIsLoading(false);
         const response = await UserService.sign(currentUser.email);
-        console.log(response.data.token);
+        console.log(response.data);
 
         if (response.data.token) {
           cookies.set("token", response.data.token);
+          cookies.set("user", response.data);
         }
       } else {
         cookies.remove("token", { path: "/" });

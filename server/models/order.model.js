@@ -3,15 +3,23 @@ const { Schema, model } = mongoose;
 
 const OrderSchema = new Schema(
   {
-    productId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Products",
-      required: true,
-    },
-    customerEmail: { type: String, required: true },
-    description: { type: String, required: true },
-    paymentMethod: { type: String, required: true },
-    totalprice: { type: Number, required: true },
+    email: { type: String, require: true },
+    customerId: { type: String, require: true },
+    products: [
+      {
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: "Products",
+          require: true,
+        },
+        quantity: { type: Number, require: true },
+      },
+    ],
+    subtotal: { type: Number, require: true },
+    total: { type: Number, require: true, default: 1 },
+    shipping: { type: Number, require: true },
+    delivery_status: { type: String, require: true, default: "pending" },
+    payment_status: { type: String, require: true, default: "unpaid" },
   },
   {
     timestamps: true,
