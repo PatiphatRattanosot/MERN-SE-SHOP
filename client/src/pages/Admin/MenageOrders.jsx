@@ -46,6 +46,35 @@ const ManageOrders = () => {
       }
     }
   };
+  const handleStatusChange = async (orderId, newStatus) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Do you want to change the order status to "${newStatus}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await OrderServices.updateOrder(orderId, { delivery_status: newStatus });
+          setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+              order._id === orderId
+                ? { ...order, delivery_status: newStatus }
+                : order
+            )
+          );
+          Swal.fire("Updated!", "Order status has been updated.", "success");
+        } catch (error) {
+          console.error("Error updating status:", error);
+          Swal.fire("Error!", "Failed to update status.", "error");
+        }
+      }
+    });
+  };
+
 
   return (
     <div className="p-6 w-full">
@@ -85,20 +114,25 @@ const ManageOrders = () => {
                 <span
                   className={`px-3 py-1 rounded ${order.payment_status === "paid"
                     ? "bg-green-500"
-                    : "bg-red-500"
+                    : "bg-rose-600"
                     }`}
                 >
                   {order.payment_status}
                 </span>
               </td>
               <td className="border p-2">
-                <select className="border px-2 py-1 rounded">
+                <select
+                  className="border px-2 py-1 rounded"
+                  value={order.delivery_status}
+                  onChange={(e) => handleStatusChange(order._id, e.target.value)}
+                >
                   <option value="Processing">Processing</option>
                   <option value="Pending">Pending</option>
                   <option value="Shipped">Shipped</option>
                   <option value="Delivered">Delivered</option>
                 </select>
               </td>
+
               <td className="border p-2 flex justify-center gap-2">
                 <button
                   className="bg-green-500 text-white px-3 py-1 rounded"
