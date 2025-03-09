@@ -21,7 +21,7 @@ const Index = () => {
             <ul className="menu bg-base-200 text-base-content min-h-full w-64 p-2 text-left">
               {/* Sidebar content here */}
               <li className="mb-4">
-                <a href="/dashboard" className="flex items-center space-x-2">
+                <a href="/" className="flex items-center space-x-2">
                   <img className="h-14" src={`${logo}`} alt="Logo" />
                   <span className="badge badge-primary">Admin</span>
                 </a>
