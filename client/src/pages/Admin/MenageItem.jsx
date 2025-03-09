@@ -76,11 +76,11 @@ const ManageItem = () => {
     }
   };
 
-  // ✅ ดึงหมวดหมู่ที่ไม่ซ้ำจาก items
   const categories = [...new Set(items.map((item) => item.category))];
 
   return (
-    <div className="container mx-auto p-4">
+
+    <div className="w-full">
       <h2 className="text-2xl font-bold mb-4">Manage Items</h2>
 
       {/* ✅ Filter Section */}
@@ -137,7 +137,9 @@ const ManageItem = () => {
             {filteredItems.length > 0 ? (
               filteredItems.map((item, index) => (
                 <tr key={item._id} className="hover:bg-gray-100">
-                  <td className="px-4 py-2 border-b text-center">{index + 1}</td>
+                  <td className="px-4 py-2 border-b text-center">
+                    {index + 1}
+                  </td>
                   <td className="px-4 py-2 border-b">
                     <img
                       src={item.image || "https://via.placeholder.com/50"}
@@ -157,7 +159,7 @@ const ManageItem = () => {
                     </button>
                     <button
                       onClick={() => handleDeleteItem(item._id)}
-                      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                      className="bg-rose-500 text-white px-2 py-1 rounded hover:bg-red-600"
                     >
                       Delete
                     </button>
@@ -166,7 +168,10 @@ const ManageItem = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="px-4 py-2 text-center text-gray-500">
+                <td
+                  colSpan="6"
+                  className="px-4 py-2 text-center text-gray-500"
+                >
                   No items found
                 </td>
               </tr>

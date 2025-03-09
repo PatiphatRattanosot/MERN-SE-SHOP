@@ -12,7 +12,17 @@ const getAllUsers = async () => await api.get(`${API_URL}/`);
 
 const updateUser = async (id, user) => await api.put(`${API_URL}/${id}`, user);
 
-const deleteUser = async (id) => await api.delete(`${API_URL}/${id}`);
+const deleteUser = async (id) => {
+  try {
+    const response = await api.delete(`${API_URL}/${id}`);
+    if (response.status === 200) {
+      return response;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+}
 
 const makeAdmin = async (email) => await api.patch(`${API_URL}/admin/${email}`);
 
