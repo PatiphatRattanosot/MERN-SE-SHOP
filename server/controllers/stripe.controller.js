@@ -179,26 +179,3 @@ exports.webhook = async (req, res) => {
 };
 
 
-exports.createOrder = async (req, res) => {
-  const { email, customerId, products, subtotal, total, shipping, payment_status } = req.body;
-
-  try {
-    const order = await OrderModel.create({
-      email: email,
-      customerId: customerId,
-      products: products,
-      subtotal: subtotal,
-      total: total,
-      shipping: shipping,
-      payment_status: payment_status,
-    });
-    if (!order) {
-      res.status(500).send({ message: "Something error occurred while creating order" });
-    }
-    res.status(200).send({ message: "Order is created", order });
-  } catch (error) {
-    console.log(
-      error.messages || "Something error occurred while creating order"
-    );
-  }
-}
