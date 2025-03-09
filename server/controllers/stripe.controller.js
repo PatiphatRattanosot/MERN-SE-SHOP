@@ -113,15 +113,20 @@ const clearCart = async (email) => {
 };
 
 const createOrder = async (customer, data) => {
-  console.log("customer :", customer);
-  console.log("data :", data);
-
   const product = JSON.parse(customer.metadata.cart);
-  console.log("Product : ", product);
+
+  // console.log("Email : ", customer.metadata.email);
+  // console.log("Customer : ", data.customer);
+  // console.log("Product : ", product);
+  // console.log("Subtotal : ", data.amount_subtotal);
+  // console.log("Total : ", data.amount_total);
+  // console.log("Shipping : ", data.customer_details);
+  // console.log("Payment Status : ", data.payment_status);
+
   try {
     const order = await OrderModel.create({
       email: customer.metadata.email,
-      customer: data.customer,
+      customerId: data.customer,
       products: product,
       subtotal: data.amount_subtotal,
       total: data.amount_total,
@@ -172,3 +177,28 @@ exports.webhook = async (req, res) => {
   }
   res.status(200).end();
 };
+
+
+exports.createOrder = async (req, res) => {
+  const { email, customerId, products, subtotal, total, shipping, payment_status } = req.body;
+
+  try {
+    const order = await OrderModel.create({
+      email: email,
+      customerId: customerId,
+      products: products,
+      subtotal: subtotal,
+      total: total,
+      shipping: shipping,
+      payment_status: payment_status,
+    });
+    if (!order) {
+      res.status(500).send({ message: "Something error occurred while creating order" });
+    }
+    res.status(200).send({ message: "Order is created", order });
+  } catch (error) {
+    console.log(
+      error.messages || "Something error occurred while creating order"
+    );
+  }
+}
