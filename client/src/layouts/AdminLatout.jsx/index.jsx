@@ -28,13 +28,22 @@ const Index = () => {
                   <div className="badge badge-primary">Admin</div>
                 </a>
               </li>
+              <ul>
+                <li><a href="#">Email: {user.email}</a></li>
+                <li>
+                  <a href="/">Home</a>
+                </li>
+                <li>
+                  <div className="hover:underline hover:cursor-pointer hover:bg-rose-400 hover:text-white" onClick={() => logout()}>Logout</div>
+                </li>
+              </ul>
               <div className="relative flex py-5 items-center">
                 <div className="flex-grow border-t border-gray-400"></div>
                 <span className="flex-shrink mx-4 text-gray-400">Menu</span>
                 <div className="flex-grow border-t border-gray-400"></div>
               </div>
               <li>
-                <a href="/admin/dashboard">Dashborad</a>
+                <a href="/admin/">Dashborad</a>
               </li>
               <li>
                 <a href="/admin/orders">Manage Orders</a>
@@ -65,17 +74,6 @@ const Index = () => {
               <li>
                 <a>Customer Support</a>
               </li>
-              <div className="relative flex py-5 items-center">
-                <div className="flex-grow border-t border-gray-400"></div>
-                <span className="flex-shrink mx-4 text-gray-400">Other</span>
-                <div className="flex-grow border-t border-gray-400"></div>
-              </div>
-              <ul>
-                <li>Email: {user.email}</li>
-                <li>
-                  <a onClick={() => logout()}>Logout</a>
-                </li>
-              </ul>
             </ul>
           </div>
         </div>

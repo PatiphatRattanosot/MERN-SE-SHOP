@@ -84,20 +84,20 @@ const Product = () => {
     <div className="section-container my-20 relative">
       <div className="text-left">
         <p className="subtitle">Special Item</p>
-        <h2 className="title">Standout Item from Our Products</h2>
+        <h2 className="title">Standout Items from Out Products</h2>
       </div>
-      <div className="md:absolute right-3 top-3 mb-10 md:mr-24  space-x-2">
+      <div className="md:absolute right-3 top-8 mb-10 md:24 space-x-2">
         <button
+          className="btn bg-red p-2 rounded-full h-12 w-10 mt-5 text-white"
           onClick={() => slider?.current?.slickPrev()}
-          className="btn btn-red p-2 rounded-full w-20 h-20 mt-5  text-white hover:bg-blue-400"
         >
-          👈
+          &lt;
         </button>
         <button
+          className="btn bg-red p-2 rounded-full h-12 w-10 mt-5 text-white"
           onClick={() => slider?.current?.slickNext()}
-          className="btn btn-red p-2 rounded-full w-20 h-20  mt-5  text-white hover:bg-blue-400"
         >
-          👉
+          &gt;
         </button>
       </div>
       <div className="slider-container">
@@ -107,9 +107,9 @@ const Product = () => {
           className="overflow-hidden mt-10 space-x-5"
         >
           {products.length > 0 &&
-            products.map((item, index) => (
-              <Card item={item} key={index}></Card>
-            ))}
+            products.map((item, index) => {
+              return <Card item={item} key={index} />;
+            })}
         </Slider>
       </div>
     </div>

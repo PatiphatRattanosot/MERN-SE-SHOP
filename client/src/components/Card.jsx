@@ -60,35 +60,38 @@ const Card = ({ item }) => {
     }
   };
   return (
-    <div className="card shadow-xl relative me-5 md:my-5 h-120">
-      <div className="rating gap-1">
-        <input
-          type="radio"
-          name="rating-3"
-          className={`mask mask-heart z-30 ${
-            isHeartFilled ? "bg-green-400" : " "
-          }`}
+    <div>
+      <div className="card shadow-xl relative mr-5 md:my-5 h-120">
+        <div
+          className={`rating gap-1 absolute right-2 top-2 p-4 z-10 heartStart`}
           onClick={handleIsHeartClick}
-        />
-      </div>
+        >
+          <input
+            type="radio"
+            name="rating-3"
+            className={`mask mask-heart  ${isHeartFilled ? "bg-red" : ""} `}
+          />
+        </div>
+        <figure>
+          <img
+            src={image}
+            alt=""
+            className="hover:scale-105 transition-all duration-300 md:h-60"
+          />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title line-clamp-1">{name}</h2>
+          <p className="line-clamp-1">{description}</p>
+          <div className="card-action justify-between items-center mt-2">
+            <h5 className="font-bold">
+              ฿ {price}
+              <span className="text-sm text-red"></span>
+            </h5>
 
-      <figure>
-        <img
-          src={image}
-          alt={name}
-          className="hover:scale-105 transition-all duration-300 md:h-60 object-cover h-30"
-        />
-      </figure>
-      <div className="card-body p-4">
-        <h2 className="title">{name}</h2>
-        <p>{description}</p>
-        <div className="card-action justify-between item-center mt-2">
-          <h5 className="font-bold">
-            {price} <span className="text-sm text-red">$</span>
-          </h5>
-          <button className="btn" onClick={handleAddToCart}>
-            Add to cart
-          </button>
+            <button className="btn bg-red text-white" onClick={handleAddToCart}>
+              Add to cart
+            </button>
+          </div>
         </div>
       </div>
     </div>

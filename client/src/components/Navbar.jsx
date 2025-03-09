@@ -5,8 +5,9 @@ import UserIcon from "./icons/UserIcon";
 import Modal from "./Modal";
 
 const Navbar = () => {
-  const { getUser } = useContext(AuthContext);
-  const user = getUser();
+  const { user, getUser } = useContext(AuthContext);
+  const userCookie = getUser();
+
 
   return (
     <>
@@ -77,7 +78,7 @@ const Navbar = () => {
               <li>
                 <a>About Us</a>
               </li>
-              {user?.role === "admin" && (
+              {userCookie?.role === "admin" && (
                 <li>
                   <a href="/admin">Admin Page</a>
                 </li>
@@ -134,7 +135,7 @@ const Navbar = () => {
             <li>
               <a>About Us</a>
             </li>
-            {user?.role === "admin" && (
+            {userCookie?.role === "admin" && (
               <li>
                 <a href="/admin">Admin Page</a>
               </li>

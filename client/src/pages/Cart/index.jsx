@@ -13,13 +13,9 @@ const index = () => {
   const { user } = useContext(AuthContext);
 
   const totalPrice = (cart) => {
-    let total = 0;
-    for (let i = 0; i < cart.length; i++) {
-      total += cart[i].productPrice * cart[i].quantity;
-    }
-    return total;
+    if (!cart || cart.length === 0) return 0; // ตรวจสอบว่ามีสินค้าในตะกร้า
+    return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   };
-
   // Format currency build-in function
   const formatPrice = (price) => {
     return new Intl.NumberFormat("th-TH", {

@@ -15,7 +15,6 @@ import {
 } from "firebase/auth";
 import UserService from "../services/user.service";
 import { Cookies } from "react-cookie";
-import { jwtDecode } from "jwt-decode";
 const cookies = new Cookies();
 
 const AuthProvider = ({ children }) => {
@@ -62,7 +61,6 @@ const AuthProvider = ({ children }) => {
         setUser(currentUser);
         setIsLoading(false);
         const response = await UserService.sign(currentUser.email);
-        console.log(response.data);
 
         if (response.data.token) {
           cookies.set("token", response.data.token);
@@ -77,7 +75,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       return unsubscribe();
     };
-  }, [auth]);
+  }, [auth, user]);
 
   const updateUserProfile = ({ name, photoURL }) => {
     return updateProfile(auth.currentUser, {
