@@ -144,6 +144,25 @@ const createOrder = async (customer, data) => {
     );
   }
 };
+const createOrderFailed = async (customer, data) => {
+  const product = JSON.parse(customer.metadata.cart);
+  try {
+    const order = await OrderModel.create({
+      email: customer.metadata.email,
+      customerId: data.customer,
+      products: product,
+      subtotal: data.amount,
+      total: data.amount,
+      shipping: data.shipping,
+      payment_status: "failed",
+    });
+    await order.save();
+    console.log("Failed order is recorded");
+  } catch (error) {
+    console.log(error.message || "Something went wrong while recording failed order");
+  }
+};
+
 
 exports.webhook = async (req, res) => {
   console.log("Webhook is called");
@@ -167,6 +186,17 @@ exports.webhook = async (req, res) => {
       stripe.customers.retrieve(data.customer).then(async (customer) => {
         try {
           createOrder(customer, data);
+        } catch (error) {
+          res.status(500).send({ message: `Webhook Error: ${error.message}` });
+        }
+      });
+      break;
+    case "payment_intent.payment_failed":
+      console.log("Payment failed!");
+      let failedData = event.data.object;
+      stripe.customers.retrieve(failedData.customer).then(async (customer) => {
+        try {
+          createOrderFailed(customer, failedData);
         } catch (error) {
           res.status(500).send({ message: `Webhook Error: ${error.message}` });
         }
