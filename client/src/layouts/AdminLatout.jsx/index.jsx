@@ -49,9 +49,9 @@ const Index = () => {
                 <div className="flex-grow border-t border-gray-400"></div>
               </div>
               <li><a className="hover:underline" href="/">Home</a></li>
-              <li><a className="hover:underline" href="/products">Product</a></li>
-              <li><a className="hover:underline" href="/order-tracking">Order Tracking</a></li>
-              <li><a className="hover:underline" href="/support">Customer Support</a></li>
+              <li><a className="hover:underline" href="/shop">Product</a></li>
+              <li><a className="hover:underline" href="/cart">Order Tracking</a></li>
+              <li><a className="hover:underline" href="/">Customer Support</a></li>
             </ul>
           </div>
         </div>

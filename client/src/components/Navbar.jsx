@@ -9,6 +9,7 @@ const Navbar = () => {
   const userCookie = getUser();
 
 
+
   return (
     <>
       <div className="navbar fixed  bg-base-100 z-50">
@@ -78,11 +79,7 @@ const Navbar = () => {
               <li>
                 <a>About Us</a>
               </li>
-              {userCookie?.role === "admin" && (
-                <li>
-                  <a href="/admin">Admin Page</a>
-                </li>
-              )}
+
             </ul>
           </div>
           <a href="/" className="btn btn-ghost text-xl">
@@ -135,15 +132,12 @@ const Navbar = () => {
             <li>
               <a>About Us</a>
             </li>
-            {userCookie?.role === "admin" && (
-              <li>
-                <a href="/admin">Admin Page</a>
-              </li>
-            )}
+
           </ul>
         </div>
         <div className="navbar-end space-x-1">
           {/* Ternary operator */}
+
           {user ? (
             <Profile />
           ) : (

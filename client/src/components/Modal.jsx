@@ -1,4 +1,4 @@
-import { FaGoogle, FaGithub, FaFacebook } from "react-icons/fa";
+import { FaGoogle, FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
@@ -14,7 +14,6 @@ const Modal = ({ name }) => {
     createUser,
     signUpWithGoogle,
     signUpWithGithub,
-    signUpWithFacebook,
   } = useContext(AuthContext);
   const {
     register,
@@ -172,7 +171,7 @@ const Modal = ({ name }) => {
             {/* Sign up */}
             {name && name === "login" ? (
               <p className="text-center my-2">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <a
                   onClick={() => {
                     document.getElementById(name).close();

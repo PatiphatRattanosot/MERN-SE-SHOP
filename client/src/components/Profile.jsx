@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import useCart from "../hooks/useCart";
 const Profile = () => {
-  const { logout, user } = useContext(AuthContext);
+  const { logout, user, getUser } = useContext(AuthContext);
+  const userCookie = getUser();
   const [cart] = useCart();
 
   return (
@@ -68,6 +69,11 @@ const Profile = () => {
               Profile
             </a>
           </li>
+          {userCookie?.role === "admin" && (
+            <li>
+              <a href="/admin">Admin Page</a>
+            </li>
+          )}
           <li>
             <a href="/profile/setting">Settings</a>
           </li>

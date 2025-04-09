@@ -23,8 +23,8 @@ const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
 
   const getUser = () => {
-    const user = cookies.get("user");
-    return user;
+    const userInfo = cookies.get("user") || null;
+    return userInfo;
   };
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -35,6 +35,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    setUser(null);
     return signOut(auth);
   };
 
@@ -60,18 +61,18 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         setUser(currentUser);
         setIsLoading(false);
-        const response = await UserService.sign(currentUser.email);
+        const { email } = currentUser;
+        const response = await UserService.sign(email);
 
-        if (response.data.token) {
-          cookies.set("token", response.data.token);
+        if (response.data) {
           cookies.set("user", response.data);
         }
       } else {
-        cookies.remove("token", { path: "/" });
-        cookies.remove("user", { path: "/" });
+        cookies.remove("user");
       }
       setIsLoading(false);
     });
+
     return () => {
       return unsubscribe();
     };
